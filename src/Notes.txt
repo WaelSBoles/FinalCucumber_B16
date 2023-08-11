@@ -1,0 +1,943 @@
+class 1 -
+
+after creating a maven project and added all the dependencies
+now we are going to write gherkin test case in cucumber project
+
+every single test case will be considered as one scenario
+
+-- we write scenario in feature file in cucumber
+
+creating features directory under resources to keep all feature files
+
+how to create feature file
+right click - file - name of file - test.feature (.feature is the extension)
+
+US=User Story
+
+US-12345
+Perform login
+
+class 2 -
+recap - cucumber/gherkin/BDD
+
+we write such things in feature file where every test case will be considered as scenario
+
+framework -
+build management tool - maven
+programming language - java
+tool - selenium & cucumber
+
+main - for writing the development code
+test - for writing the testing code
+
+technical - java
+non technical - resources
+
+US - perform login
+
+Feature: This is the name of my user story
+Scenario: This is the name of my test case
+Tags- Given, When, And, Then
+
+rules -
+never add even a small character or . in your step in feature file after step definition
+otherwise it will not find the exact linking of the step def
+
+never create duplicate step def for the steps otherwise it will confuse and will
+throw an exception
+
+login.feature
+Given I am launching the application
+
+add employee.feature
+Given I am launching the application
+
+User story - searching an employee in HRMS application
+
+US 121 - search employee by id
+
+
+
+
+US 122 - search employee by name
+
+
+
+Class 3 -
+
+recap -
+    one user story, we need one feature file(many scenarios)==>Step Declaration(Resources)
+    these scenarios are linked with the step definitions
+
+    we have to write the code/script in the step definition itself++.===> Java
+
+    test runner -very important
+    we use junit-cucumber to run our tests
+    cucumber options to provide multiple customizable options
+
+    features - path to all the feature files
+    glue - to provide the path of step def package
+    dry run = true, to generate missing step def, when we set it to true,
+    dry run = false, it will generate  all the step def
+    tags "@   " to execute scenarios of our choice, we can use different tags in scenarios
+
+    we use" OR " keyword in tags to execute either scenario A or scenario B
+    (ScenarioA or ScenarioB)
+    we use "AND" keyword in tags to execute the scenario having both conditions true
+    (scenarioA and scenarioB), only the test case having both tags will be executed
+
+
+    login scenario -
+        admin login
+        ess(employee) login
+        invalid login
+
+    Background - when the flow of all the scenarios is same in one feature file,
+    it will execute before all the scenarios.
+    it will be limited to one feature file.
+    for every feature file, there will be different background
+
+==to use the methods and Hooks (for the pre codtion and post condition) shorcut++
+1-config.prop - to keep all the configurations related parameters in it(like browser,url, username and password) we create in resources
+2-config reader class - read the data from .prop files(we create in Java)
+3-constants class - to keep all the paths from this class(we create in Java)
+4-CommonMethod- we apply all of this to commen method(we create in Java)
+
+Hooks - when we need to write the pre condition and post condition for the
+complete project all the test cases, we use hooks.
+
+we have 2 hooks in cucumber-
+@before - pre condition of all the test cases
+@after - post condition of all the test cases
+
+Rule - we must create hooks class in steps package
+
+Hooks vs Background -
+Hooks will execute first and then background will execute
+Hooks is same for all the feature (open and close browser)file but backgroun is different for all the featurtefile
+
+order of execution -
+first hooks to open the browser will execute
+then background will execute
+then test scenario
+then hooks to close the browser will execute
+
+class 4 -
+
+recap -
+
+in the framework, we should not pass any data hard coded -
+to pass data we have config.properties file
+config reader class - here in this class, we read our data
+
+constants - to keep all the paths of the constants classes and file, we use this class
+
+Background - in one feature file, when the flow is same for all the scenarios, you just
+keep these similar steps in background, it is limited to one feature file
+
+Hooks - we have 2 hooks,
+@Before - pre condition for the complete project
+@After - post condition for the complete project
+
+Hooks must be declared in steps package
+
+test runner -
+features,
+glue,
+dryRun,
+tags,
+plugin - pretty
+monochrome - true
+
+we need to write a function for screenshot which will save my screenshot for all the
+test cases with different names so that it will not be overriden
+
+screenshot method in cucumber - here it accepts array of byte for pictures
+
+POM - page object model design pattern
+for every screen/page in the application, we create a separate  class for it and
+keep all the locators/webelements of this page in this class and we create a key of
+locators which we will pass in every step.
+
+
+class 5 -
+recap -
+test runner class -
+
+POM - page object model design pattern -
+
+framework characteristics -
+
+it should be easily understandable
+it should be expandable
+it should be easy to maintain
+
+we created loginpage, employeesearchpage, dashboardpage, addemployeepage
+
+data driven testing - when your one test case executes against multiple set of data
+
+Class 6 -
+recap -
+we passed data from feature file itself to add one employee
+
+scenario - just a test case
+scenario-outline - with examples table - we pass key and value
+we implemented POM in all the pages - we setup page initializer class too
+
+we use assertions to verify verification and validation checkpoints
+majorly we work with assertEquals and assertTrue for our test cases
+this assert class comes from org.junit
+
+*******innessa, please find the notes here as per your request*******
+
+in data table - hooks and background executes just one time
+in examples table - hooks and background executed as many times as data set
+
+data table is applicable for just one step
+examples table is applicable for one complete scenario
+
+verification is checking the existance of element
+validation is checking the functionality of the element
+
+in cucumber framework you can add employees using multiple ways
+using hardcoded data
+using string  value from feature
+using examples table in scenario outline
+using data table in feature file
+using excel files
+
+
+in excel file - we have 2 types of extensions
+.xls - HSSF workbook
+.xlsx - XSSF workbook
+
+class 7
+recap -
+ examples table and data table -
+
+ in data table, we use scenario instead of scenario outline
+ data table is limited to one step but examples table works for all the scenario
+
+ in data table, we don't use examples key word and we don't pass keys in the step
+
+ hooks execute one time, background executes one time and scenario executes based on data set
+
+ adding the employees using excel file -
+ excel reader class to read the data from excel file
+ verified the employee has been added
+
+why reports - it is an artifact/proof that you have executed the scenario
+it gives you detailed information, how many test cases passed and failed
+
+html report - will be generated once you execute your code from runner class
+to open the report - right click on the report - select open in - select browser - chrome
+*
+json report - we have to add plugin in runner class
+
+
+here in every framework - we need one point of execution and here this  point is
+pom.xml file (we add dependency, we add runner class, we add plugin, we execute)
+
+to execute runner class from pom.xml file, we need plugin (maven surefire plugin)
+https://maven.apache.org/surefire/maven-surefire-plugin/examples/testng.html
+Using Suite XML Files
+
+build success message means your code is working fine and you can proceed further
+everytime we must execute test cases using pom.xml file
+
+to generate the report from pom.xml file, we need to add a plugin called
+maven cucumber reporting plugin
+
+we are generating the report without screenshot but we need screenshot for all test cases
+
+at the last step I will capture the screenshot(we add it to the hook class)
+so that even if it is passed or failed, it will give me that page(we use if condition for pass and fail test case screenshot)
+
+there is a class in cucumber called Scenario class
+this scenario class from cucumber holds the complete information of your execution (like name,steps, idea)
+
+log 4j - it is a log file which we use for local execution related information
+log4j.xml file is responsible to integrate/add log messages into your framework
+log is the class in which you write all the methods
+DOM configurator is the place where you provide the path of log4j file
+and then you call all the methods to print your messages
+
+75-80 (success rate of automation)
+100 - 80 will be passed - 20 will be failed (example)
+
+rerun plugin we use to create failed.txt file
+this file has all the failed test cases which we can run from failed runner class
+
++++ we can have multiple runnerclasses for tests like , somke runnerclass, regression runner class and so on
+
+class 8 -
+recap -
+reporting -
+runner class - html report -
+runner class - json report -
+cucumber maven reporting plugin from pom.xml file
+
+log4j - we added dependency in pom.xml file
+and we created log4j.xml file to generate logs/to integrate logs/to provide configuration settings
+and we created Log class to write all the methods which one we need to use
+then we call DOMConfigurator and methods in steps which will print
+my execution logs in logfile.log
+
+failed.txt - rerun plugin in runner class - the path of failed.txt file which
+will be created after execution and it has the path of all failed scenarios
+and then we create failedrunner class to run only failed test cases
+
+report with screenshot -
+take screenshot - pattern - for taking unique ss everytime
+Hooks - (we create the Screenshot in Hooks in)post condition -
+passed and failed folder for ss -
+Scenario class in cucumber - it holds the complete information about execution
+using array of byte - attaching the screenshot in the report
+scenario.attach is the method we use for ss attach
+
+maven -
+
+lifecycle - phases in maven
+compile - source code converts into binary code
+package - code will be packaged into jars (developers use this part)
+install - jars will be installed to local repo
+deploy - here  jars will  be transferred to remote repo
+clean - (clean up)it deletes target folder
+test - your code will be tested
+
+clean
+compile
+install
+package
+test
+ -- to run test
+
+open cmd where your pom.xml file of the project exists
+ mvn clean from cmd to clean the target folder
+ mvn clean test will execute code from cmd
+ mvn test -Dcucumber.filter.tags="@invalid" we use to override the code from cmd
+mvn test -Dcucumber.filter.tags="@invalid" we use to override tags
+
+
+_________________ API ____________
+
+API - application programming interface
+
+In restaurant -
+client/customer - who gives the order - request
+chef - who responds to the request
+waiter/server - who is responsible to deliver the request and response both
+
+ATM machines -
+
+Bank of america
+Wells fargo
+PNC
+chase
+citi
+
+citi bank - ATM chase -
+
+presentation layer - what we see on UI is presentation layer
+application layer - the logic of the application has been written
+data layer - database
+
+
+client - server architecture
+
+
+1 - 1 tier architecture
+
+when the presentation layer, application layer and data layer are available at the same place, we call it one-tier architecture.
+
+example - calculator (desktop application or standalone application), ms paint, notepad, wordpad.
+
+
+2 - 2 tier architecture
+
+when the presentation layer is available at one end
+and application/data layer is available at another end then we call it 2 tier architecture.
+
+example - pizza, macD, dominoz, KFC etc
+
+3 tier architecture -
+
+when the presenation layer is available at one place
+application layer is available at another place
+and data layer is available at 3rd place
+
+example - hrms, websites
+
+n-tier architecture
+
+when there are n number of presentation layer, application layer and data layer, we call it n tier architecture.
+
+reasons - why we need it and examples as well
+
+facebook, instagram, amazon, ebay etc
+
+Need of API?
+
+front end - html, css, angular, JS
+back end - java, python
+middleware - c++, JS
+
+1. to make systems developed in different languages communicate, we need API.
+2. For security purposes
+to maintain the security, 1 api is responsible for one peice of information which is easy to maintain and to transfer
+
+CRUD -
+create
+retrieve
+update
+delete
+
+front end - CRUD
+
+manual
+automate
+
+API testing -
+manual - postman
+automation - restassured
+
+non UI testing -
+
+swagger document - this document will give you the information of api and what to test over there
+
+API's which are hosted over the internet are called webservices.
+by default all webservices are API's but all API's are not webservices.
+
+
+DNS - domain name server
+
+why we need to test API?
+
+mumbai to NYC - 321
+california - greece - 321
+
+to identify the glitch in API, we need to test them
+
+webservices testing -
+
+there are 2 types of webservices -
+REST - representational state transfer
+SOAP - simple object access protocol
+
+REST is fast
+SOAP is slow
+REST is less secured
+SOAP is more secured
+
+REST webservices
+
+we are also going to work with rest web services
+
+what is URI?
+uniform resource identifier - in order to send the request we need complete URI
+
+client - request
+server - who will give the response to the request
+API
+
+Class 2 -
+
+recap -
+
+client - the one who sends the request
+server - the one who responds to the request
+Api - the middleman
+
+
+client - server architecture
+
+1 tier architecture
+-- calculator, notepad, wordpad etc.
+
+2 tier architecture
+-- pizza, dominoz etc
+
+3 tier architecture
+-- web applications, amazon, hrms syntax
+
+n tier architecture
+-- extended version of 3 tier arch.
+
+
+webservices - API's which are hosted over the internet
+
+REST
+SOAP
+
+the document which we need to work with during API testing is swagger document.
+
+Base URI - uniform resource identifier
+
+base URI = baseURL + endpoint
+
+
+What is HTTP?
+hypertext transfer protocol
+
+it allows us to access multiple websites and to do this operation it has its own methods/functions of it.
+
+C - create
+R - retrieve
+U - update
+D - delete
+
+POST - it is used to create a record in the system.
+GET - it is used to retrieve a record from the system.
+PUT - it is used to update a record in the system.
+DELETE - it is used to delete a record from the system.
+
+
+in postman, when we need to keep all the request at one place, we need collection.
+Collection shows all the request created in it.
+
+
+To perform CRUD operations in the system, we need admin user.
+
+To create admin user -
+
+BaseURI - base URL + endpoint
+
+baseURI - hrm.syntaxtechs.net/syntaxapi/api/createUser.php
+
+Type of Method - POST
+
+body/payload - when we need to add some record in the system, we send it in body.
+
+what is the format of the body?
+
+either JSON or XML.
+
+REST uses JSON format.
+
+what is JSON- javascript object notation - it is just a format of data which allows us to send information in the form of key value pair
+
+body/payload -
+
+{
+  "name": "adminbatch16",
+  "email": "admin@test.com",
+  "password": "Test@123"
+}
+
+header -
+content-type - application/json
+
+in API testing, the first thing we observe in response is status code.
+
+if we have post method -
+base uri
+type of method
+body/payload - in json format
+headers
+
+response status code - 201
+
+
+There are 2 types of API's.
+public API - everyone can use
+private API - only the registered users can use
+
+How API keeps security in private API.
+
+It is the process of -
+Authentication and Authorization
+
+
+
+API -
+	web services
+	normal API
+
+Webservices
+	REST
+	SOAP
+
+REST
+	public
+	private API
+
+authentication and authorization
+
+private API
+
+when the state of the server memory is set to true, we call it stateful application
+when you enter your credentials first time, server checks with DB and saved it in the memory
+
+Stateless application -
+when the server memory is set to false and database sends toke to use application for a specific amount of time.
+
+
+CREATE A TOKEN -
+
+baseURI = hrm.syntaxtechs.net/syntaxapi/api/generateToken.php
+
+Type of Method = POST
+
+body/payload
+
+{
+  "email": "admin@test.com",
+  "password": "Test@123"
+}
+
+header -
+content type = application/json
+
+Json Web Token (JWT)
+
+it is encrypted form of token -
+
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+eyJpYXQiOjE2OTAxMzMyNjcsImlzcyI6ImxvY2FsaG9zdCIsImV4cCI6MTY5MDE3NjQ2NywidXNlcklkIjoiNTYxNSJ9
+bSg_2ze1JX8TiY_QBU48NFHIIeZENbsgIF2T3pIHEfQ
+
+
+JWT has 3 parts in it -
+	Header - there are 2 things in it - type of token and  algorithm used to generate it
+	payload - issuer, time of issue, expiration time and userid
+	signature - the same message has been conveyed to client from server
+
+
+
+so far, we have created an admin user and we have generated token as well to perform crud operations
+
+Create an employee in HRMS db using API
+
+BaseURI = hrm.syntaxtechs.net/syntaxapi/api/createEmployee.php
+
+Type of Method - POST
+
+body/payload
+
+{
+  "emp_firstname": "justin",
+  "emp_lastname": "azzuri",
+  "emp_middle_name": "ms",
+  "emp_gender": "M",
+  "emp_birthday": "2000-07-21",
+  "emp_status": "happy",
+  "emp_job_title": "QA"
+}
+
+header -
+content-type = application/json
+
+authorization -
+bearer token - token value
+
+Class 3 -
+
+recap -
+
+	-- authentication and authorization process
+	-- statefull application and stateless application
+
+DB - session id - token/otp/magiclink
+
+JWT - json web token
+
+3 points in token -
+
+header
+payload
+signature
+
+bearer token
+
+JWT has 3 types -
+Bearer token
+MAC token
+Grants
+
+
+CRUD
+admin user -
+
+swagger - in this document, we can find all the details of API.
+
+in postman -
+we created collection -
+in collection we have written our requests -
+
+
+POST - 201
+
+base URI = base URL + endpoint
+
+creating an employee
+
+
+BaseURI = hrm.syntaxtechs.net/syntaxapi/api/createEmployee.php
+
+Type of Method - POST
+
+body/payload
+
+{
+  "emp_firstname": "justin",
+  "emp_lastname": "azzuri",
+  "emp_middle_name": "ms",
+  "emp_gender": "M",
+  "emp_birthday": "2000-07-21",
+  "emp_status": "happy",
+  "emp_job_title": "QA"
+}
+
+header -
+content-type = application/json
+
+authorization -
+bearer token - token value
+
+
+to identify the glitch is in API or DB
+we have to perform get operation after every request
+
+
+Base URI = hrm.syntaxtechs.net/syntaxapi/api/getOneEmployee.php
+
+Type of Method = GET
+
+employee_id = 88326A
+
+query parameter -
+it starts after ? in URI and comes in the form of key and value pair
+
+
+path parameter -
+
+it defines the path in URI
+
+to extend the path of URI we use this parameter
+
+to work with statefull application , we select basic auth and provide credentials there
+cookies - small block of data which is available at web server which is used to track your information
+
+
+
+GET job title -
+
+Base URI = hrm.syntaxtechs.net/syntaxapi/api/jobTitle.php
+Type of Method = GET
+
+Homework
+GET all employees
+GET employement status
+
+
+CRUD
+create
+retrieve
+update -
+
+PUT call - fully update
+
+Base URI = baseURL + endpoint
+hrm.syntaxtechs.net/syntaxapi/api/updateEmployee.php
+
+Type of method = PUT
+
+Body/payload =
+
+{
+  "employee_id": "88326A",
+  "emp_firstname": "chrisul",
+  "emp_lastname": "lohan",
+  "emp_middle_name": "sm",
+  "emp_gender": "F",
+  "emp_birthday": "2011-11-24",
+  "emp_status": "pathetic",
+  "emp_job_title": "no knowledge without college"
+}
+
+
+
+
+partially update employee -
+
+hrm.syntaxtechs.net/syntaxapi/api/updatePartialEmplyeesDetails.php
+
+Type of method = patch
+
+body/payload =
+
+{
+  "employee_id": "88326A",
+  "emp_middle_name": "ms"
+}
+
+header -
+content-type = application/json
+
+authorization = bearer token
+
+
+
+CREATE AN EMPLOYEE - GET THE CREATED EMPLOYEE
+Update an employee - Get the updated employee
+Partially updated the employee - Get partially updated employee
+
+
+DEV
+QA/TEST
+STAGE
+PROD
+
+CreateAdminUser = /createUser.php
+GenerateToken = /generateToken.php
+CreateEmployee = /createEmployee.php
+GetOneEmployee = /getOneEmployee.php
+GetAllEmployees = /getAllEmployees.php
+GetJobTitle = /jobTitle.php
+UpdateEmployee = /updateEmployee.php
+PartiallyUpdateEmployee = /updatePartialEmplyeesDetails.php
+
+class 4 -
+
+
+recap -
+
+JSON web tokens -
+Bearer
+MAC
+grants
+
+but we work with bearer token
+
+header
+payload
+signature
+
+CRUD operations -
+
+created an employee - Retrieve the created employee
+Updated the employee - retrieve the updated employee
+updated the partial employee details - retrieve partially updated employee
+deleted employee
+
+
+
+if we have to test the API's in multiple environments such as QA/Test, prod, staging
+
+providing environment variables -
+{{variableName}} - this is the syntax to be passed in the baseURI for the environment
+
+we added globals - these are the endpoints we have provided which we can pass in the form of parameters in URI - {{globalName}}
+
+JWT value in globals is Bearer tokenValue
+
+pass the JWT in headers in authorization
+select no auth in authroization tab and save the request.
+
+*USE THE SAME VARIABLE NAME AS YOU PASSED IN GLOBALS*
+*IF YOU DON"T DO IT, YOU WILL ALWAYS CRY*
+
+
+postman comes with inbuilt javascript API library
+
+Pm is the object of postman which allows us to use different methods available in this API
+
+pm.test
+pm.request
+pm.expect
+pm.globals
+pm.response
+
+postman uses chai assertion library - this library is easy to implement and easily readable and understandable
+
+in order to verify in postman - we can verify
+
+status code
+time of response
+body - any message, any key and any value
+response -
+
+-------------------------------API Automation------------------------------
+
+REST Assured -
+
+REST web service, the rest web service allows data to be sent in JSON format.
+
+Rest Assured is DSL (domain specific language)
+it is a java based library used to automate REST API's.
+
+Rest assured follows BDD approach
+
+given - prepare the request
+when - hit the endpoint/make a call/send a request
+then - assertions/verification
+
+java - already available
+rest assured - need to add (in pom.xml file, we have to add dependency)
+
+
+class 5
+recap -
+
+Rest Assured - java based library used to automate API
+it is DSL which allows us to send the data in JSON format
+
+in rest assured
+given - preparation of request
+when - hit the endpoint - send the request
+then - assertions/verifications
+
+rest assured
+json
+
+what is hamcrest -
+it is a popular framework, it helps us to create the matcher objects.
+mainly developers use it for unit testing and qa use it for integration test in java
+it  is mainly used with frameworks like testng, cucumber, junit, mockito etc.
+
+json dependency -
+
+JsonPath class - in this class we have jsonPath() method
+
+class 6 -
+    recap -
+    we wrote some request in rest assured with java -
+    BaseURI = baseURL
+
+    given - preparing the request
+    when - hitting the endpoint
+    then - verification/validation
+
+    requestspecification - we use our request through this
+    Response - here we store the result after hitting the endpoint
+
+    hamcrest matchers - for verifying the key and value, we use hamcrest matchers framework
+    in this, we used equalTo method for validation of data in the response body
+
+    jsonPath()  is the method which we use to get the value based on the key.
+
+    @Test - it is junit annotation which is used to execute all the test cases
+    @fixmethodorder - methodsorters.nameascending - this is the commmand we use to execute
+    our test cases in alphabetical order.
+
+    operations we did so far -
+    we created the employee
+    we get the created employee
+    we updated the employee
+    we get the updated employee
+    we partially updated employee
+    we get the partially updated employee
+
+    integrate rest assured with cucumber framework
+
+    writing the scenario in feature file
+    create step definition
+    write code in step definition
+
+class 7 -
+recap - feature file - we wrote scenario for creating an employee
+    -- package - separate package, we created for API scenarios
+
+    -- we created JWT via automation.
+to keep all the endpoints and URI and headers, we need to create api constants class (APIConstants)
+
